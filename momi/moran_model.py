@@ -1,5 +1,5 @@
 import numpy as np
-from util import memoize
+from .util import memoize
 import scipy.sparse
 from scipy.sparse.linalg import expm_multiply
 

@@ -1,2 +1,2 @@
-from demography import Demography
-from size_history import PiecewiseHistory, ConstantTruncatedSizeHistory, ExponentialTruncatedSizeHistory, FunctionalTruncatedSizeHistory
+from .demography import Demography
+from .size_history import PiecewiseHistory, ConstantTruncatedSizeHistory, ExponentialTruncatedSizeHistory, FunctionalTruncatedSizeHistory

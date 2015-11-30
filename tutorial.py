@@ -13,8 +13,8 @@ epochs = [ExponentialTruncatedSizeHistory(n_max=n, tau=0.25, N_top=1.0, N_bottom
 demo1 = PiecewiseHistory(epochs)
 
 ## print the SFS entries
-print "Printing SFS entries for three epoch history"
-print [demo1.freq(i, n) for i in range(1,n)]
+print("Printing SFS entries for three epoch history")
+print([demo1.freq(i, n) for i in range(1,n)])
 
 
 ## Next, print out the "truncated SFS" for just the two recent epochs
@@ -22,8 +22,8 @@ print [demo1.freq(i, n) for i in range(1,n)]
 epochs_trunc = epochs[:2]
 demo1_trunc = PiecewiseHistory(epochs_trunc)
 
-print "\nPrinting truncated SFS for two recent epochs"
-print [demo1_trunc.freq(i,n) for i in range(1,n)]
+print("\nPrinting truncated SFS for two recent epochs")
+print([demo1_trunc.freq(i,n) for i in range(1,n)])
 
 
 ## Finally, let's compute SFS entries for a multipopulation demography
@@ -48,20 +48,20 @@ c:.3[&&momi:lineages=8:model=piecewise:model_0=exponential:tau_0=.2:N_top_0=.1:N
 
 demo3 = Demography.from_newick(newick_str)
 
-print "\nSFS entry for (1,3,0) for 3-population demography"
+print("\nSFS entry for (1,3,0) for 3-population demography")
 # configuration represented by a dict of dicts, with derived/ancestral alleles in each leaf population
 entry = {'a': {'derived' : 1, 'ancestral': 9},
          'b': {'derived' : 3, 'ancestral' : 2},
          'c': {'derived' : 0, 'ancestral' : 8}}
 # compute SFS with Demography.sfs() method
-print demo3.sfs(entry)
+print(demo3.sfs(entry))
 
 
 ### For benchmarking in paper (see benchmark.py), we also implemented Hua Chen's formulas,
 ### but ONLY for the special case of constant population size along each branch.
 try:
     # Demography.sfs(..., use_chen_eqs=True) to use Chen's formulas
-    print demo3.sfs(entry, use_chen_eqs=True)
+    print(demo3.sfs(entry, use_chen_eqs=True))
 except NotImplementedError:
     # Chen's formulas not implemented for demo3, due to changing size along branches
     pass

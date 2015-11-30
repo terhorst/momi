@@ -1,11 +1,11 @@
-from __future__ import division
+
 import numpy
 import scipy.misc
 import operator
 import math
-from util import memoize_instance
+from .util import memoize_instance
 import warnings
-from size_history import ConstantTruncatedSizeHistory
+from .size_history import ConstantTruncatedSizeHistory
 
 math_mod = math
 myint,myfloat = int,float
@@ -184,7 +184,7 @@ def log_falling(n,k):
     return log_factorial(n) - log_factorial(n-k)
 
 def gcoef(k, n, m, N_diploid, tau):
-    k, n, m = map(myint, [k, n, m])
+    k, n, m = list(map(myint, [k, n, m]))
     N_diploid = myfloat(N_diploid)
     tau = myfloat(tau)
     return (2*k - 1) * (-1)**(k - m) * math_mod.exp(log_rising(m, k-1) + log_falling(n, k) - log_factorial(m) - log_factorial(k - m) - log_rising(n, k))
@@ -215,8 +215,8 @@ def formula1(n, m, N_diploid, tau):
 
 def formula3(j, n, m, N_diploid, tau):
     # Switch argument to j here to stay consistent with the paper.
-    j, n, m = map(myint, [j, n, m])
-    tau, N_diploid = map(myfloat, [tau, N_diploid])
+    j, n, m = list(map(myint, [j, n, m]))
+    tau, N_diploid = list(map(myfloat, [tau, N_diploid]))
     def expC2(kk):
         return math_mod.exp(-kk * (kk - 1) / 4 / N_diploid * tau)
     r = sum(gcoef(k, n, j, N_diploid, tau) * # was gcoef(k, n, j + 1, N_diploid, tau) * 

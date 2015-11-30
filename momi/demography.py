@@ -1,11 +1,11 @@
 import networkx as nx
 from Bio import Phylo
-from cStringIO import StringIO
-from util import cached_property
-from size_history import ConstantTruncatedSizeHistory, ExponentialTruncatedSizeHistory, PiecewiseHistory
+from io import StringIO
+from .util import cached_property
+from .size_history import ConstantTruncatedSizeHistory, ExponentialTruncatedSizeHistory, PiecewiseHistory
 import numpy as np
-from sum_product import _SumProduct
-from huachen_eqs import _SumProduct_Chen
+from .sum_product import _SumProduct
+from .huachen_eqs import _SumProduct_Chen
 
 class Demography(nx.DiGraph):
     @classmethod
@@ -35,13 +35,13 @@ class Demography(nx.DiGraph):
     
     @cached_property
     def root(self):
-        nds = [node for node, deg in self.in_degree().items() if deg == 0]
+        nds = [node for node, deg in list(self.in_degree().items()) if deg == 0]
         assert len(nds) == 1
         return nds[0]
 
     @cached_property
     def leaves(self):
-        return set([k for k, v in self.out_degree().items() if v == 0])
+        return set([k for k, v in list(self.out_degree().items()) if v == 0])
 
     def is_leaf(self, node):
         return node in self.leaves

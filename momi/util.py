@@ -6,7 +6,7 @@ import itertools
 def grouper(n, iterable, fillvalue=None):
     "grouper(3, 'ABCDEFG', 'x') --> ABC DEF Gxx"
     args = [iter(iterable)] * n
-    return itertools.izip_longest(fillvalue=fillvalue, *args)
+    return itertools.zip_longest(fillvalue=fillvalue, *args)
 
 EPSILON = 1e-8
 
@@ -75,7 +75,7 @@ class memoize_instance(object):
             cache = obj.__cache
         except AttributeError:
             cache = obj.__cache = {}
-        key = (self.func, args[1:], frozenset(kw.items()))
+        key = (self.func, args[1:], frozenset(list(kw.items())))
         try:
             res = cache[key]
         except KeyError:

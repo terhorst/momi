@@ -1,9 +1,9 @@
-from __future__ import print_function, division
+
 import scipy.misc, scipy.signal
 import math
 import numpy as np
 
-from util import memoize_instance, memoize
+from .util import memoize_instance, memoize
 
 class _SumProduct(object):
     '''

@@ -50,7 +50,7 @@ def main():
 def time_runs(args):
     ms_path, n_taxa, lineages_per_taxon, moranOnly = args
 
-    print "# Starting job with n_per_deme=%d, n_demes=%d" % (lineages_per_taxon, n_taxa)
+    print("# Starting job with n_per_deme=%d, n_demes=%d" % (lineages_per_taxon, n_taxa))
 
     # Get a random phylogeny
     newick_str = random_binary_tree(n_taxa)
@@ -61,7 +61,7 @@ def time_runs(args):
     snp_list = run_simulation(ms_path, demo, 100, lineages_per_taxon)
     for snp,state in enumerate(snp_list):
         #print(state)
-        state_tuple = tuple([v['derived'] for k,v in sorted(state.iteritems())])
+        state_tuple = tuple([v['derived'] for k,v in sorted(state.items())])
         rid = random.getrandbits(32)
 
         method_list = [("moran",False)]
@@ -73,7 +73,7 @@ def time_runs(args):
                 ret = demo.sfs(state, use_chen_eqs)
             results.append((name,n_taxa, lineages_per_taxon, snp, t.interval, ret, rid, str(state_tuple), newick_str))
 
-    print "# Finished job with n_per_deme=%d, n_demes=%d" % (lineages_per_taxon, n_taxa)
+    print("# Finished job with n_per_deme=%d, n_demes=%d" % (lineages_per_taxon, n_taxa))
     return results
 
 
@@ -100,7 +100,7 @@ def random_binary_tree(n):
         int_node = "i%i" % i
 
         t = random.expovariate(1) / float(n) * 2.0
-        lengths = {k: v + t for k, v in lengths.items()}
+        lengths = {k: v + t for k, v in list(lengths.items())}
 
         g.add_edges_from([(int_node, c, {'edge_length': lengths[c]}) for c in coal])
 
@@ -179,7 +179,7 @@ def run_simulation(ms_path, tree, L, lineages_per_taxon):
 
     try:
         lines = subprocess.check_output(cmd.split())
-    except subprocess.CalledProcessError, e:
+    except subprocess.CalledProcessError as e:
         ## ms gives really weird error codes, so ignore them
         lines = e.output
     lines = lines.split("\n")

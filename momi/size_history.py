@@ -1,12 +1,12 @@
-from __future__ import division
-from util import EPSILON, memoize
+
+from .util import EPSILON, memoize
 from math import exp, fsum, log, expm1
-from util import cached_property
+from .util import cached_property
 import numpy as np
 import scipy.integrate
 from scipy.special import comb as binom
 
-import moran_model
+from . import moran_model
 
 @memoize
 def W(n, b, j):
